@@ -7,40 +7,24 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class UserDAO {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    public UserDAO(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     public List<User> getListUsers() {
-        List<User> userList = entityManagerFactory.createEntityManager().createQuery("select u from User u", User.class).getResultList();
-        return userList;
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Transactional
     public void saveUser(User user) {
-        entityManagerFactory.createEntityManager().persist(user);
+        entityManager.persist(user);
     }
 
-
-    //    private SessionFactory sessionFactory;
-//
-//    public UserDAO(SessionFactory sessionFactory) {
-//        this.sessionFactory = sessionFactory;
-//    }
-//
-//    @Transactional
-//    public List<User> getListUsers() {
-//        Session session = sessionFactory.getCurrentSession();
-//        List<User> userList = session.createQuery("select u from User u", User.class).getResultList();
-//        return userList;
-//    }
 }

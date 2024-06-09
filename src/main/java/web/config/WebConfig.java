@@ -67,6 +67,7 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -76,27 +77,17 @@ public class WebConfig implements WebMvcConfigurer {
         dataSource.setPassword(env.getRequiredProperty("hibernate.connection.password"));
         return dataSource;
     }
-    private Properties hibernateProperties(){
+
+    private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
         return properties;
 
     }
-//    @Bean
-//    public LocalSessionFactoryBean getSessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource());
-//
-//        //sessionFactory.setPackagesToScan("com.zeyt.mvcHibernate.model");
-//        sessionFactory.setAnnotatedClasses(User.class);
-//        sessionFactory.setHibernateProperties(hibernateProperties());
-//        return sessionFactory;
-//    }
-//
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean getSessionFactory(){
+    public LocalContainerEntityManagerFactoryBean getSessionFactory() {
         LocalContainerEntityManagerFactoryBean sessionfactory = new LocalContainerEntityManagerFactoryBean();
         sessionfactory.setDataSource(dataSource());
         sessionfactory.setPackagesToScan(env.getRequiredProperty("model.package"));
