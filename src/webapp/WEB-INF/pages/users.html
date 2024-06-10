@@ -3,7 +3,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Список пользователей</title>
+    <title>user list</title>
 </head>
 <body>
 <h1>User list</h1>
@@ -20,11 +20,12 @@
     </thead>
     <tbody>
     <tr th:each="user : ${userList}">
-        <td><a th:href="@{/{id}(id=${user.id})}" th:text="${user.id}">Id</a></td>
-        <td><a th:href="@{/{id}(id=${user.id})}" th:text="${user.name}">Name></a></td>
-        <td><a th:href="@{/{id}(id=${user.id})}" th:text="${user.age}">Age</a></td>
+        <td><a th:href="@{/showUser(id=${user.id})}" th:text="${user.id}">Id</a></td>
+        <td><a th:href="@{/showUser(id=${user.id})}" th:text="${user.name}">Name</a></td>
+        <td th:text="${user.age}">Age</td>
     </tr>
     </tbody>
 </table>
 </body>
 </html>
+

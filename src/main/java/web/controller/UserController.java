@@ -23,11 +23,6 @@ public class UserController {
         model.addAttribute("userList", userDAO.getListUsers());
         return "users";
     }
-    @GetMapping("/{id}")
-    public String showUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("userList", userDAO.showUser(id));
-        return "show";
-    }
 
     @GetMapping("/new")
     public String newUser(Model model) {
@@ -43,14 +38,11 @@ public class UserController {
         return "redirect:/";
 
     }
-//@PostMapping("/new")
-//public String createUser(@RequestParam(value = "name", required = false) String name , @RequestParam(value = "age", required = false) int age) {
-//    System.out.println("create user");
-//    User user = new User();
-//    user.setName(name);
-//    user.setAge(age);
-//    userDAO.saveUser(user);
-//    return "redirect:/users";
-//}
+
+    @GetMapping("/showUser")
+    public String showUser(@RequestParam(value = "id", required = false) int id, Model model) {
+        model.addAttribute("userList", userDAO.showUser(id));
+        return "show";
+    }
 
 }
