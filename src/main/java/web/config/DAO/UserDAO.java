@@ -26,5 +26,10 @@ public class UserDAO {
     public void saveUser(User user) {
         entityManager.persist(user);
     }
+    @Transactional
+    public User showUser(int id) {
+
+        return getListUsers().stream().filter(u -> u.getId() == id).findFirst().orElse(null);
+    }
 
 }

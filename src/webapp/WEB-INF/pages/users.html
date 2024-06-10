@@ -1,47 +1,15 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>List of Users</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>List of Users</h1>-->
-<!--<form action="/users" method="get">-->
 
-<!--</form>-->
-<!--<table border="1">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>Id</th>-->
-<!--        <th>Name</th>-->
-<!--        <th>Age</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    &lt;!&ndash; Loop through each car in the list &ndash;&gt;-->
-<!--    <tr th:each="user : ${userList}">-->
-<!--        &lt;!&ndash; Display car details in table cells &ndash;&gt;-->
-<!--        <td th:text="${user.id}">Id</td>-->
-<!--        <td th:text="${user.name}">Name</td>-->
-<!--        <td th:text="${user.age}">Age</td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--    <br>-->
-
-   <form  th:action="@{/new}"> <button type="submit">Create user</button> </form>-->
-
-<!--</table>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of Users</title>
+    <title>Список пользователей</title>
 </head>
 <body>
-<h1>List of Users</h1>
-
+<h1>User list</h1>
+<form th:action="@{/new}" method="get">
+    <button type="submit">Create user</button>
+</form>
 <table border="1">
     <thead>
     <tr>
@@ -52,14 +20,11 @@
     </thead>
     <tbody>
     <tr th:each="user : ${userList}">
-        <td th:text="${user.id}">Id</td>
-        <td th:text="${user.name}">Name</td>
-        <td th:text="${user.age}">Age</td>
+        <td><a th:href="@{/{id}(id=${user.id})}" th:text="${user.id}">Id</a></td>
+        <td><a th:href="@{/{id}(id=${user.id})}" th:text="${user.name}">Name></a></td>
+        <td><a th:href="@{/{id}(id=${user.id})}" th:text="${user.age}">Age</a></td>
     </tr>
     </tbody>
 </table>
-
-
-
 </body>
 </html>
