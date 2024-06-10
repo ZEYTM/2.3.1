@@ -19,28 +19,32 @@ public class UserController {
 
     @GetMapping()
     public String showUsers(Model model) {
-        System.out.println(" show user");
         model.addAttribute("userList", userDAO.getListUsers());
         return "users";
     }
 
     @GetMapping("/new")
     public String newUser(Model model) {
-        System.out.println("new user");
         model.addAttribute("user", new User());
         return "new";
     }
 
     @PostMapping("/new")
     public String createUser(@ModelAttribute("user") User user) {
-        System.out.println("create user");
         userDAO.saveUser(user);
+        return "redirect:/";
+    }
+
+
+
+    @PostMapping("/showUser")
+    public String updateUser(@ModelAttribute("user") User user, @RequestParam (value = "id",required = false) Integer id) {
+        userDAO.update(id,user);
         return "redirect:/";
 
     }
-
     @GetMapping("/showUser")
-    public String showUser(@RequestParam(value = "id", required = false) int id, Model model) {
+    public String showUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
         model.addAttribute("userList", userDAO.showUser(id));
         return "show";
     }

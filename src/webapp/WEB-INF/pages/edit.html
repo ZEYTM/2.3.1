@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/showUser}" th:object="${userList}">
+<form th:method="POST" th:action="@{/editUser}" th:object="${userList}">
     <p th:text="${userList.name}">VALUE</p>
     <p th:text="${userList.id}">VALUE</p>
     <label for="name">Enter name:</label>
