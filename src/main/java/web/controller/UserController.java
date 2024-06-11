@@ -4,56 +4,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.config.DAO.UserDAO;
 import web.model.User;
+import web.service.UserServiceImpl;
 
 @Controller
 public class UserController {
 
-    private UserDAO userDAO;
+    private UserServiceImpl userServiseImpl;
 
     @Autowired
-    public UserController(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UserController(UserServiceImpl userServiseImpl) {
+        this.userServiseImpl = userServiseImpl;
     }
 
+
     @GetMapping()
-    public String showUsers(Model model) {
-        model.addAttribute("userList", userDAO.getListUsers());
+    public String getUsers(Model model) {
+        model.addAttribute("userList", userServiseImpl.getListUsers());
         return "users";
     }
 
     @GetMapping("/new")
-    public String newUser(Model model) {
+    public String getNewUserForm(Model model) {
         model.addAttribute("user", new User());
         return "new";
     }
 
     @PostMapping("/new")
     public String createUser(@ModelAttribute("user") User user) {
-        userDAO.saveUser(user);
+        userServiseImpl.saveUser(user);
         return "redirect:/";
     }
 
     @GetMapping("/showUser")
-    public String showUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        model.addAttribute("userList", userDAO.showUser(id));
+    public String getUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
+        model.addAttribute("userList", userServiseImpl.getUser(id));
         return "show";
     }
 
     @PostMapping("/showUser")
     public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "id", required = false) Integer id) {
-        userDAO.update(id, user);
+        userServiseImpl.updateUser(id, user);
         return "redirect:/";
     }
 
     @PostMapping("/deleteUser")
     public String deleteUser(@RequestParam(value = "id", required = false) Integer id) {
-        if (id != null) {
-            userDAO.delete(id);
-        }
-        if (id == null) {
-        }
+        userServiseImpl.deleteUser(id);
         return "redirect:/";
     }
 
