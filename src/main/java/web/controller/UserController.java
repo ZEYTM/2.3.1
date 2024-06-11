@@ -35,18 +35,26 @@ public class UserController {
         return "redirect:/";
     }
 
-
-
-    @PostMapping("/showUser")
-    public String updateUser(@ModelAttribute("user") User user, @RequestParam (value = "id",required = false) Integer id) {
-        userDAO.update(id,user);
-        return "redirect:/";
-
-    }
     @GetMapping("/showUser")
     public String showUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
         model.addAttribute("userList", userDAO.showUser(id));
         return "show";
+    }
+
+    @PostMapping("/showUser")
+    public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "id", required = false) Integer id) {
+        userDAO.update(id, user);
+        return "redirect:/";
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUser(@RequestParam(value = "id", required = false) Integer id) {
+        if (id != null) {
+            userDAO.delete(id);
+        }
+        if (id == null) {
+        }
+        return "redirect:/";
     }
 
 }

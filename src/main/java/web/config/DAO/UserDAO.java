@@ -38,6 +38,13 @@ public class UserDAO {
         user.setAge(updateUser.getAge());
         entityManager.persist(user);
     }
+    @Transactional
+    public void delete(int id){
+        User user = showUser(id);
+        entityManager.remove(user);
+        System.out.println("delete DAO");
+    }
+
 
 
 

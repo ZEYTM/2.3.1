@@ -2,24 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
-
+    <title>Edit user</title>
 
 </head>
 <body>
 
 <form th:method="POST" th:action="@{/showUser}" th:object="${userList}">
-    <p th:text="${userList.name}">VALUE</p>
-    <p th:text="${userList.id}">VALUE</p>
-    <label for="name">Enter name:</label>
+    <label for="name">Edit name:</label>
     <input type="text" name="name" id="name" th:value="${userList.name}"/>
-    <label for="age">Enter age:</label>
+    <label for="age">Edit age:</label>
     <input type="text" name="age" id="age" th:value="${userList.age}"/>
     <input type="hidden" name="id" th:value="${userList.id}"/>
     <br>
-    <input type="submit" value="Create!">
-</form>
+    <input type="submit" value="Save">
 
+</form>
+<form th:action="@{/deleteUser}" method="post">
+    <input type="hidden" name="id" th:value="${userList.getId()}"/>
+    <button type="submit">Delete user</button>
+</form>
 
 </body>
 </html>
